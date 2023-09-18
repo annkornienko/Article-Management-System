@@ -1,7 +1,6 @@
 const URL = "https://jsonplaceholder.typicode.com" //change it
 
 export const fetchArticles = async () => {
-    console.log('fetchArticles');
     try {
         const response = await fetch(`${URL}/posts`);
 

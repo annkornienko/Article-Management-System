@@ -4,9 +4,7 @@ import styles from "../pages/AddNewArticle/AddNewArticle.module.css";
 import CreatableSelect from 'react-select/creatable';
 import { formatCurrentDate } from "../utilities/helpers";
 
-
 const EditModal = ({ onCancel, onConfirm, initialValue }) => {
-    console.log({ initialValue });
     const [title, setTitle] = useState(initialValue.title);
     const [content, setContent] = useState(initialValue.body);
     const [tags, setTags] = useState(initialValue.tags);
@@ -33,7 +31,7 @@ const EditModal = ({ onCancel, onConfirm, initialValue }) => {
 
     return (
         <div className={modalStyles.modalBackdrop}>
-            <div className={modalStyles.modal}>
+            <div className={styles.editModal, modalStyles.modal}>
                 <form className={styles.form}>
                     <div className={styles.formGroup}>
                         <label htmlFor="title">Title

@@ -5,7 +5,7 @@ const ArticleItem = ({ article, removeArticle, editArticle }) => {
         <tr key={article.id}>
             <td>{article.title}</td>
             <td>{article.userId}</td>
-            <td>{article.time}</td>
+            <td className={styles.time}>{article.time}</td>
             <td>{article.body}</td>
             <td>
                 <button onClick={() => editArticle(article)} className={styles.buttonLikeLink}>Edit</button>
