@@ -1,0 +1,67 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+  }
+.table {
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+.table th {
+    background-color: #f2f2f2;
+    text-align: left;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.table tr:hover {
+    background-color: #f5f5f5;
+}
+
+.link {
+    margin-right: 8px;
+}
+
+.addButton {
+    background-color: #007bff;
+    color: #fff;
+    padding: 0 35px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 30px;
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  .title {
+    font-size: 28px;
+  }
+  .rowContainer {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .buttonLikeLink {
+    color: #007bff;
+    text-decoration: underline;
+    cursor: pointer;
+    margin-bottom: 10px;
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+  }

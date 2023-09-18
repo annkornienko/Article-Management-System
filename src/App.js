@@ -1,23 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import { fetchArticles } from "./api";
+import { ArticleList } from './pages/ArticleList';
 
 function App() {
+  const [articles, setArticles] = useState([]);
+  const [isFetching, setIsFetching] = useState(true);
+
+  useEffect(() => {
+    const localData = localStorage.getItem("articles");
+
+    if (localData) {
+      setArticles(JSON.parse(localData));
+      setIsFetching(false);
+    } else {
+      const fetchData = async () => {
+        try {
+          const data = await fetchArticles();
+
+          localStorage.setItem("articles", JSON.stringify(data));
+
+          setArticles(data);
+          setIsFetching(false);
+        } catch (error) {
+          console.error('Error fetching articles:', error);
+          setIsFetching(false);
+        }
+      };
+
+      fetchData();
+    }
+  }, [])
+
+  if (isFetching || !articles) {
+    return "Loading...";
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ArticleList fetchedArticles={articles} />
     </div>
   );
 }

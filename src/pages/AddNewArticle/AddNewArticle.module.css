@@ -1,0 +1,76 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .form {
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .formGroup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  label {
+    font-weight: bold;
+    width: 15%; 
+  }
+
+  input[type="text"], textarea {
+  /* width: 100%; */
+  width: 75%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.multiSelect {
+    width: 80%;
+    margin-top: 5px;
+}
+
+.addButton {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 35px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 16px;
+
+}
+
+.required {
+    color: red;
+}
+
+.backLink {
+  color: #007bff;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-bottom: 10px;
+  align-self: flex-start; 
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  outline: inherit;
+  font-size: 18px;
+  font-weight: bold; 
+}
