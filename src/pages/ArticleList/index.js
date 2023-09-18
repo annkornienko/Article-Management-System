@@ -9,7 +9,6 @@ import Header from "../../components/header";
 
 export const ArticleList = ({ fetchedArticles }) => {
     const [articles, setArticles] = useState(fetchedArticles);
-    // const [isFetching, setIsFetching] = useState(false);
     const [order, setOrder] = useState("");
     const navigate = useNavigate();
     const { state } = useLocation();
@@ -40,11 +39,11 @@ export const ArticleList = ({ fetchedArticles }) => {
         const headerCells = articlesHeader.map((header, idx) => (
             <th key={idx} onClick={toggleSortOrder}>
                 {header.name}
-                {header.sortable && (
+                {/* {header.sortable && (
                     <a href="#">
                         {!order ? <span>&#8679;</span> : order === "asc" ? <span>&#8679;</span> : <span>&#x21E7;</span>}
                     </a>
-                )}
+                )} */}
             </th>
         ));
 
@@ -113,5 +112,3 @@ export const ArticleList = ({ fetchedArticles }) => {
         </div>
     );
 };
-
-// export default ArticleList;
