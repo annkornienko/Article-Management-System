@@ -1,23 +1,41 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./ArticleList.module.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import ArticleItem from "../ArticleItem";
 import ConfirmationModal from "../../components/confirmation";
 import EditModal from "../../components/modal";
-import { articlesHeader } from "../../utilities/helpers"
+import { articlesHeader } from "../../utilities/helpers";
 import Header from "../../components/header";
 
 export const ArticleList = ({ fetchedArticles }) => {
     const [articles, setArticles] = useState(fetchedArticles);
-    const [order, setOrder] = useState("");
+    const [sortOrder, setSortOrder] = useState({});
     const navigate = useNavigate();
     const { state } = useLocation();
-    const [deleteArticleId, setDeleteArticleId] = useState(null)
-    const [editArticle, setEditArticle] = useState(null)
+    const [deleteArticleId, setDeleteArticleId] = useState(null);
+    const [editArticle, setEditArticle] = useState(null);
 
+    const toggleSortOrder = (column) => {
+        const newSortOrder = {
+            ...sortOrder,
+            [column]: !sortOrder[column] || sortOrder[column] === "asc" ? "desc" : "asc",
+        };
 
-    const toggleSortOrder = () => {
-        setOrder((sortOrder) => (sortOrder === "asc" ? "desc" : "asc"));
+        const sortedArticles = [...articles].sort((a, b) => {
+            let first = a[column];
+            let second = b[column];
+
+            if (column === "time") {
+                first = first ? new Date(first) : new Date(0); //set common starting point fot timestamps if no value (January 1, 1979)
+                second = second ? new Date(second) : new Date(0);
+            }
+            if (first < second) return newSortOrder[column] === "asc" ? -1 : 1;
+            if (first > second) return newSortOrder[column] === "asc" ? 1 : -1;
+            return 0;
+        });
+
+        setSortOrder(newSortOrder);
+        setArticles(sortedArticles);
     };
 
     useEffect(() => {
@@ -25,71 +43,82 @@ export const ArticleList = ({ fetchedArticles }) => {
     }, [articles]);
 
     useEffect(() => {
+        document.title = "Articles"
+        console.log("here")
         if (state?.newArticle) {
             const updatedArticles = [...articles, state.newArticle];
             setArticles(updatedArticles);
 
-            //clean location state
-            navigate('/');
+            // Clean location state
+            navigate("/");
         }
     }, []);
 
-
-    const generateHeader = () => {
-        const headerCells = articlesHeader.map((header, idx) => (
-            <th key={idx} onClick={toggleSortOrder}>
-                {header.name}
-                {/* {header.sortable && (
-                    <a href="#">
-                        {!order ? <span>&#8679;</span> : order === "asc" ? <span>&#8679;</span> : <span>&#x21E7;</span>}
-                    </a>
-                )} */}
-            </th>
-        ));
-
-        return <tr>{headerCells}</tr>;
+    const mapHeaderTitleToField = {
+        "Title": "title",
+        "Created At": "time",
+        "Descriptions": "body",
+        "Author": "userId"
     };
+
+    const generateHeader = () => (
+        <tr>
+            {articlesHeader.map((header, idx) => (
+                <th key={idx} onClick={() => toggleSortOrder(mapHeaderTitleToField[header.name])}>
+                    {header.name}
+                    {console.log(header.sortable)}
+
+                    {
+                        header.sortable &&
+                        <>
+
+                            {!sortOrder[mapHeaderTitleToField[header.name]] ? <span>&#8645;</span> : sortOrder[mapHeaderTitleToField[header.name]] === "asc" ? <span>&#8595;</span> : <span>&#8593;</span>}
+                        </>
+                    }
+
+                </th>
+            ))}
+        </tr>
+    );
 
     const handleAddArticle = () => {
         navigate("new");
     };
 
-
     const removeArticle = () => {
-        const filtered = articles.filter((val) => val.id !== deleteArticleId)
+        const filtered = articles.filter((val) => val.id !== deleteArticleId);
 
         setArticles(filtered);
-        hideConfirmationModal()
-    }
+        hideConfirmationModal();
+    };
 
     const handleEditArticle = (article) => {
-        console.log({ article });
-        const newArticles = articles.map((val) => val.id === article.id ? article : val)
+        const newArticles = articles.map((val) => (val.id === article.id ? article : val));
 
         setArticles(newArticles);
-        hideEditModal()
-    }
+        hideEditModal();
+    };
 
     const hideConfirmationModal = () => {
-        setDeleteArticleId(null)
-    }
+        setDeleteArticleId(null);
+    };
 
     const handleDeleteConfirmation = (id) => {
-        setDeleteArticleId(id)
-    }
+        setDeleteArticleId(id);
+    };
 
     const hideEditModal = () => {
-        setEditArticle(null)
-    }
+        setEditArticle(null);
+    };
 
     const showEditModal = (article) => {
-        setEditArticle(article)
-    }
-
+        setEditArticle(article);
+    };
 
     if (!articles) {
-        return "Loading..."
+        return "Loading...";
     }
+
     return (
         <div className={styles.container}>
             <Header />

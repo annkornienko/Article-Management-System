@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "../Register/Register.module.css";
 import { useNavigate } from "react-router-dom";
 
@@ -9,7 +9,11 @@ const Login = () => {
     });
 
     const [errors, setErrors] = useState({});
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        document.title = "Login"
+    }, [])
 
     const handleChange = (e) => {
         const { name, value } = e.target;

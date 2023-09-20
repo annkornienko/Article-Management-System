@@ -37,5 +37,5 @@ export const articlesHeader = [
     { name: "Author", sortable: true },
     { name: "Created At", sortable: true },
     { name: "Descriptions", sortable: true },
-    { name: "Actions", sortable: true },
+    { name: "Actions", sortable: false },
 ];

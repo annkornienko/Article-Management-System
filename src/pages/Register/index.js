@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Register.module.css";
 
@@ -12,6 +12,10 @@ const Register = () => {
     });
 
     const [errors, setErrors] = useState({});
+
+    useEffect(() => {
+        document.title = "Registration"
+    }, [])
 
     const handleChange = (e) => {
         const { name, value } = e.target;

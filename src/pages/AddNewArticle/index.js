@@ -1,7 +1,7 @@
 import styles from "./AddNewArticle.module.css";
 import CreatableSelect from 'react-select/creatable';
 import { useNavigate } from "react-router-dom";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { formatCurrentDate } from "../../utilities/helpers";
 import Header from "../../components/header";
 
@@ -17,6 +17,10 @@ const AddNewArticle = () => {
         { value: "Tag2", label: "Tag2" },
         { value: "Tag3", label: "Tag3" }
     ];
+
+    useEffect(() => {
+        document.title = "New Article"
+    }, [])
 
     const handleSubmit = (e) => {
         e.preventDefault()
